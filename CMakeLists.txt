@@ -12,18 +12,24 @@ conan_basic_setup()
 set(SRC ${CMAKE_CURRENT_BINARY_DIR}/../src)
 set(INC ${CMAKE_CURRENT_BINARY_DIR}/../include)
 
+# common include directories
+include_directories(${INC})
+include_directories(${SRC})
+
 # grpc
 set(proto_srcs "${SRC}/protobuf/grpc_server.pb.cc")
 set(grpc_srcs "${SRC}/protobuf/grpc_server.grpc.pb.cc")
 
-include_directories(${INC})
-include_directories(${SRC})
-
+# grpc library
 add_library(grpc_proto STATIC
   ${proto_srcs}
   ${grpc_srcs})
 
 target_link_libraries(grpc_proto ${CONAN_LIBS})
+
+
+
+
 
 add_executable(md5
   ${SRC}/main.cpp
